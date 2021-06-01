@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     data.printData();
 
     Simplex simplex(data);
-    simplex.printTableau();
+        
     simplex.solve();
     simplex.printTableau();
     cout << endl << "Objective Value: " << simplex.geObjValue() << endl;

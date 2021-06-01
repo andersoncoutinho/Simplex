@@ -32,6 +32,7 @@ void Data::readData() {
     std::getline(arquivo, linha);
     for(int i = 0; i < linha.size(); i++) {
         if(linha[i] == ',' || linha[i] == '\n') {
+            valor.push_back('\0');
             c.push_back(stod(valor));
             valor.clear();
         } else {
@@ -54,6 +55,7 @@ void Data::readData() {
         A.push_back(std::vector<double>());
         for(int j = 0; j < linha.size(); j++) {
             if(linha[j] == ',' || linha[j] == '\n') {
+                valor.push_back('\0');
                 A[i].push_back(stod(valor));
                 valor.clear();
             } else {
@@ -67,8 +69,11 @@ void Data::readData() {
     std::getline(arquivo, linha);
 
     std::getline(arquivo, linha);
-    for(int i = 0; i < linha.size(); i += 2) {
-        sinal.push_back(linha[i]);
+    for(int i = 0; i < linha.size(); i++) {
+        if(linha[i] == ',') {
+            sinal.push_back(linha[i-1]);
+
+        }
     }
 
     std::getline(arquivo, linha);
@@ -78,6 +83,7 @@ void Data::readData() {
     std::getline(arquivo, linha);
     for(int i = 0; i < linha.size(); i++) {
         if(linha[i] == ',') {
+            valor.push_back('\0');
             b.push_back(stod(valor));
             valor.clear();
         } else {

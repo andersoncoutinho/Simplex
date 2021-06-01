@@ -12,6 +12,7 @@ void Simplex::gerarTableau(Data data) {
     double M = 1000;
     std::vector<int> indicesM;
     
+    
 
     tableau.push_back(std::vector<double>());
     tableau[0] = data.getValoresFO();
@@ -27,8 +28,8 @@ void Simplex::gerarTableau(Data data) {
         tableau[i+1] = data.getMatrizRestric()[i];
     }
 
-    for(int i = 0; i < data.getSinalRestric().size(); i++) {
-        
+    for(int i = 0, indiceBasicas = 0; i < data.getSinalRestric().size(); i++, indiceBasicas++) {
+        VB.push_back(tableau.size()+indiceBasicas+1);
         if(data.getSinalRestric(i) == '<') {
             tableau[0].push_back(0);
 
@@ -37,6 +38,7 @@ void Simplex::gerarTableau(Data data) {
             indicesM.push_back(i);
             tableau[0].push_back(M);
             if(data.getSinalRestric(i) == '>') {
+                indiceBasicas++;
                 tableau[0].push_back(0);
             }
         }
@@ -75,6 +77,7 @@ void Simplex::solve() {
         int colunaPivot = getColunaPivot();
         int linhaPivot = getLinhaPivot(colunaPivot);
         double elementoPivot = tableau[linhaPivot][colunaPivot];
+        VB[linhaPivot-1] = colunaPivot+1;
     
         
         for(int j = 0; j < tableau[linhaPivot].size(); j++) {
@@ -93,7 +96,7 @@ void Simplex::solve() {
         }
     }
 
-    this->obj_value = this->modo == MAX ? tableau[0][tableau[0].size()-1] : tableau[0][tableau[0].size()-1];
+    this->obj_value = this->modo == MAX ? tableau[0][tableau[0].size()-1] : -tableau[0][tableau[0].size()-1];
 }
 
 bool Simplex::ehValido() {
@@ -139,6 +142,9 @@ double Simplex::geObjValue() {
 void Simplex::printTableau() {
 
     for(int i = 0; i < tableau.size(); i++) {
+        if(i > 0) {
+            std::cout << "x" << VB[i-1] << "   ";
+        }
         for(int j = 0; j < tableau[i].size(); j++) {
 
             std::cout << tableau[i][j] << " ";

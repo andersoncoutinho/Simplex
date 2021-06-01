@@ -10,6 +10,7 @@ class Simplex {
 		std::vector<std::vector<double>> tableau;
 		int modo;
 		double obj_value;
+		std::vector<int> VB;
 
 	public:
 		Simplex(Data data);
