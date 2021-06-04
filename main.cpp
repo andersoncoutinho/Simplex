@@ -11,12 +11,16 @@ int main(int argc, char *argv[]) {
     data.readData();
     
     data.printData();
+    std::cout << std::endl << std::endl;
 
     Simplex simplex(data);
-        
-    simplex.solve();
-    simplex.printTableau();
-    cout << endl << "Objective Value: " << simplex.geObjValue() << endl;
+    simplex.printDual();  
+    std::cout << std::endl << std::endl;
+    
+    //simplex.solve();
+    //simplex.printTableau();
+    //simplex.printValues();
+    //cout << endl << "Objective Value: " << simplex.geObjValue() << endl;
 
 
     

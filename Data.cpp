@@ -146,6 +146,10 @@ void Data::printData() {
         std::cout << " " << than << " " << b[i] << std::endl;
     }
 
+    for(int j = 1; j <= getValoresFO().size(); j++) {
+        std::cout << "x" << j << " \u2265 0" << std::endl;
+    }
+
 
 }
 
