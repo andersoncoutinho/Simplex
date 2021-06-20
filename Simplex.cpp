@@ -14,8 +14,6 @@ void Simplex::gerarTableau(Data data) {
 
     double M = 1000;
     std::vector<int> indicesM;
-    
-    
 
     tableau.push_back(std::vector<double>());
     tableau[0] = data.getValoresFO();
